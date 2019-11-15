@@ -10,20 +10,19 @@ const bookName = document.getElementById('bookName')
 
 let allTasks = localStorage.getItem('myTasks') ? 
                 JSON.parse(localStorage.getItem('myTasks')) : [];
-// let uniqIdies = []
+
 
 localStorage.setItem('myTasks', JSON.stringify(allTasks));
 
 const allTasksData = JSON.parse(localStorage.getItem('myTasks'));
 
 
-// uniqId = () => {
-    
-// }
 
-makeListItem = (text) =>{
+
+makeListItem = (author, year, pages, bookName) =>{
     const liItem = document.createElement('li')
-    liItem.innerHTML = `<p>${text}</p> <button>edit</button> <button>delete</button>`
+    liItem.innerHTML = `<p>${author}</p> <p>${year}</p> <p>${pages}</p> <p>${bookName}</p>
+    <button>edit</button> <button>delete</button>`
     ul.appendChild(liItem)
 }
 
@@ -32,12 +31,12 @@ form.addEventListener('submit', function(event){
     
     event.preventDefault()
 
-    makeListItem(author.value);
+    makeListItem(author.value, year.value, pages.value, bookName.value)
 
-    allTasks.push(author.value)
+    allTasks.push([author.value, year.value, pages.value, bookName.value])
     localStorage.setItem('myTasks', JSON.stringify(allTasks))
 
-    author.value = ''
+    // author.value = ''
 })
 
 allTasksData.forEach(element => {
