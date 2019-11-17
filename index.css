@@ -1,1 +1,6 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+span {
+  outline: 1px solid red;
+  display: inline-block;
+  margin: 5px;
+}
+/*# sourceMappingURL=index.css.map */
