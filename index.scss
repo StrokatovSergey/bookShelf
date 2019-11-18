@@ -1,5 +1,16 @@
-span {
-    outline: 1px solid red;
-    display: inline-block;
-    margin: 5px;
+
+.list li {
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    background: #1aff0b70;
+    span{
+        background: #f35a5a66;
+        display: inline-block;
+        margin: 5px;
+    }
+    button {
+        margin: 0 10px;
+    }
 }
