@@ -7,7 +7,6 @@ const pages = document.getElementById('pages')
 const bookName = document.getElementById('bookName')
 const submit = document.getElementById('submit');
 
-
 const liNode = ul.getElementsByTagName('LI');
 
 
@@ -69,9 +68,7 @@ makeListItem = (authorInput, yearInput, pagesInput, bookNameInput) =>{
         idPreviousBook = 1;
     }
     
-    node.setAttribute('idBook', idPreviousBook)
-    let ranId = Math.floor(Math.random() * 999);
-;
+    node.setAttribute('idBook', idPreviousBook);
 
     let deleteBtn = document.createElement('BUTTON');
     let editBtn = document.createElement('BUTTON');
@@ -101,6 +98,8 @@ const deleteItem = (element) =>{
 
 const editingProcess = (element) => {
     let keyValue = [[author.value], [year.value], [pages.value], [bookName.value]];
+    let deleteBtn = element.lastElementChild;
+    let editBtn = element.lastElementChild.previousElementSibling;
 
     localStorage.setItem(element.getAttribute('idBook'), JSON.stringify(keyValue));
 
@@ -119,10 +118,11 @@ const editingProcess = (element) => {
     submit.style.backgroundColor = '#0366EE';
     submit.style.pointerEvents = 'auto';
 
-    element.lastElementChild.style.backgroundColor = '#0366EE';
-    element.lastElementChild.style.pointerEvents = 'auto';
-    element.lastElementChild.previousElementSibling.style.backgroundColor = '#0366EE';
-    element.lastElementChild.previousElementSibling.style.pointerEvents = 'auto';
+    deleteBtn.style.backgroundColor = '#0366EE';
+    deleteBtn.style.pointerEvents = 'auto';
+
+    editBtn.style.backgroundColor = '#0366EE';
+    editBtn.style.pointerEvents = 'auto';
 
     ul.childNodes.forEach(el => {
         if (el != element) {
@@ -134,31 +134,35 @@ const editingProcess = (element) => {
 }
 
 const editItem = (element) =>{
-    
-    
-    let elementforArg = element;
+    let elementFromArg = element;
+    let deleteBtn = element.lastElementChild;
+    let editBtn = element.lastElementChild.previousElementSibling;
+
+
     author.value = element.childNodes[0].textContent;
     year.value = element.childNodes[1].textContent;
     pages.value = element.childNodes[2].textContent;
     bookName.value = element.childNodes[3].textContent;
+
     const editOkBtn = document.createElement('BUTTON');
     editOkBtn.textContent = 'OK';
     form.append(editOkBtn)
     editOkBtn.classList.add('editOkBtn')
-    editOkBtn.addEventListener('click', () => editingProcess(elementforArg))
+    editOkBtn.addEventListener('click', () => editingProcess(elementFromArg))
 
     
     submit.style.backgroundColor = 'gray';
     submit.style.pointerEvents = 'none';
    
-    elementforArg.lastElementChild.style.backgroundColor = 'gray';
-    elementforArg.lastElementChild.style.pointerEvents = 'none';
-    elementforArg.lastElementChild.previousElementSibling.style.backgroundColor = 'gray';
-    elementforArg.lastElementChild.previousElementSibling.style.pointerEvents = 'none';
+    deleteBtn.style.backgroundColor = 'gray';
+    deleteBtn.style.pointerEvents = 'none';
+
+    editBtn.style.backgroundColor = 'gray';
+    editBtn.style.pointerEvents = 'none';
 
 
     ul.childNodes.forEach(el => {
-        if (el != elementforArg) {
+        if (el != elementFromArg) {
             el.style.backgroundColor = 'gray';
             el.style.pointerEvents = 'none';
         }
