@@ -95,7 +95,7 @@ const deleteItem = (element) =>{
 const editingProcess = (element) => {
     let keyValue = [[author.value], [year.value], [pages.value], [bookName.value]];
 
-    localStorage.setItem(element.className, JSON.stringify(keyValue));
+    localStorage.setItem(element.getAttribute('idBook'), JSON.stringify(keyValue));
 
     element.childNodes[0].textContent = author.value;
     element.childNodes[1].textContent = year.value;
@@ -109,11 +109,6 @@ const editingProcess = (element) => {
     for (let i = 0; i < allInputs.length; i++) allInputs[i].value = '';
 }
 
-const addEditBtn = (element) => {
-    const editOkBtn = document.querySelector('.editOkBtn')
-    editOkBtn.remove();
-    editOkBtn.addEventListener('click', () => editingProcess(element) )
-}
 const editItem = (element) =>{
     let elementforArg = element;
     author.value = element.childNodes[0].textContent;
