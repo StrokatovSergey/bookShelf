@@ -11,10 +11,13 @@ const liNode = ul.getElementsByTagName('LI');
 
 
 const startWork = ()=>{
-    for (var i = 0; i < localStorage.length; i++) {
+    for (var i = 0; i < localStorage.length; ++i) {
         let currentTask = JSON.parse(localStorage.getItem(localStorage.key(i)));
         const node = document.createElement("LI");
         node.classList.add(localStorage.key(i));
+        console.log(localStorage.length);
+        
+        node.setAttribute('idBook', i)
         
         let author = document.createElement('SPAN');
         let year = document.createElement('SPAN');
@@ -46,6 +49,9 @@ makeListItem = (authorInput, yearInput, pagesInput, bookNameInput) =>{
     let pages = document.createElement('SPAN');
     let bookName = document.createElement('SPAN')
 
+    let idPreviousBook = ul.lastElementChild.getAttribute('idBook');
+    
+    node.setAttribute('idBook', ++idPreviousBook)
     let ranId = Math.floor(Math.random() * 999);
     node.classList.add(ranId);
 
