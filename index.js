@@ -61,6 +61,7 @@ makeListItem = (authorInput, yearInput, pagesInput, bookNameInput) =>{
     editBtn.textContent = 'EDIT BOOK';
 
     deleteBtn.addEventListener('click',()=>deleteItem(node))
+    editBtn.addEventListener('click', () => editItem(node))
 
     node.append(author, year, pages, bookName, editBtn, deleteBtn)
     ul.appendChild(node)
@@ -73,14 +74,31 @@ const deleteItem = (element) =>{
     element.closest("li").remove()
 }
 
+const editingProcess = (element) => {
+    let keyValue = [[author.value], [year.value], [pages.value], [bookName.value]];
 
-// const EditingOk = (element) => {
-//     const editOkBtn = document.querySelector('.editOkBtn')
-//     // editOkBtn.remove();
-//     console.log(localStorage.getItem(element.className));
-//     editOkBtn.addEventListener('click', )
-// }
+    
+    
+    localStorage.setItem(element.className, JSON.stringify(keyValue));
+
+    element.childNodes[0].textContent = author.value;
+    element.childNodes[1].textContent = year.value;
+    element.childNodes[2].textContent = pages.value;
+    element.childNodes[3].textContent = bookName.value;
+
+    const editOkBtn = document.querySelector('.editOkBtn')
+    editOkBtn.remove()
+    const allInputs = document.getElementsByTagName('INPUT');
+    for (let i = 0; i < allInputs.length; i++) allInputs[i].value = '';
+}
+
+const addEditBtn = (element) => {
+    const editOkBtn = document.querySelector('.editOkBtn')
+    editOkBtn.remove();
+    editOkBtn.addEventListener('click', () => editingProcess(element) )
+}
 const editItem = (element) =>{
+    let elementforArg = element
     author.value = element.childNodes[0].textContent;
     year.value = element.childNodes[1].textContent;
     pages.value = element.childNodes[2].textContent;
@@ -89,7 +107,7 @@ const editItem = (element) =>{
     editOkBtn.textContent = 'OK';
     form.append(editOkBtn)
     editOkBtn.classList.add('editOkBtn')
-    // editOkBtn.addEventListener('click', ()=>EditingOk(element))
+    editOkBtn.addEventListener('click', () => editingProcess(elementforArg))
 }
 
 form.addEventListener('submit', function(event){
