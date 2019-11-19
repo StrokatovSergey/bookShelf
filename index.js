@@ -5,10 +5,21 @@ const author = document.getElementById('author')
 const year = document.getElementById('year')
 const pages = document.getElementById('pages')
 const bookName = document.getElementById('bookName')
+const submit = document.getElementById('submit');
+
+
 const liNode = ul.getElementsByTagName('LI');
 
 
-
+const showTitle = () => {
+    if (!localStorage.length) {
+        document.getElementById('itemsNot').style.display = 'block';
+        document.getElementById('items').style.display = 'none';
+    } else {
+        document.getElementById('itemsNot').style.display = 'none';
+        document.getElementById('items').style.display = 'block';
+    }
+}
 
 const startWork = ()=>{
     for (var i = 0; i < localStorage.length; ++i) {
@@ -16,9 +27,7 @@ const startWork = ()=>{
         let currentTask = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
         const node = document.createElement("LI");
-        // node.classList.add(localStorage.key(i));
-        console.log(localStorage.length);
-        
+
         node.setAttribute('idBook', localStorage.key(i))
         
         let author = document.createElement('SPAN');
@@ -40,6 +49,7 @@ const startWork = ()=>{
         node.append(author, year, pages, bookName, editBtn, deleteBtn)
         ul.appendChild(node)
     }
+    showTitle()
 }
 startWork();
 
@@ -61,7 +71,7 @@ makeListItem = (authorInput, yearInput, pagesInput, bookNameInput) =>{
     
     node.setAttribute('idBook', idPreviousBook)
     let ranId = Math.floor(Math.random() * 999);
-    // node.classList.add(ranId);
+;
 
     let deleteBtn = document.createElement('BUTTON');
     let editBtn = document.createElement('BUTTON');
@@ -86,10 +96,7 @@ const deleteItem = (element) =>{
     let deletedItem = element.getAttribute('idBook');
     localStorage.removeItem(deletedItem)
     element.closest("li").remove()
-    console.log(element);
-    console.log(deletedItem);
-    
-    
+    showTitle()
 }
 
 const editingProcess = (element) => {
@@ -107,9 +114,28 @@ const editingProcess = (element) => {
 
     const allInputs = document.getElementsByTagName('INPUT');
     for (let i = 0; i < allInputs.length; i++) allInputs[i].value = '';
+
+    
+    submit.style.backgroundColor = '#0366EE';
+    submit.style.pointerEvents = 'auto';
+
+    element.lastElementChild.style.backgroundColor = '#0366EE';
+    element.lastElementChild.style.pointerEvents = 'auto';
+    element.lastElementChild.previousElementSibling.style.backgroundColor = '#0366EE';
+    element.lastElementChild.previousElementSibling.style.pointerEvents = 'auto';
+
+    ul.childNodes.forEach(el => {
+        if (el != element) {
+            el.style.backgroundColor = '#1aff0b70';
+            el.style.pointerEvents = 'auto';
+        }
+    });
+    
 }
 
 const editItem = (element) =>{
+    
+    
     let elementforArg = element;
     author.value = element.childNodes[0].textContent;
     year.value = element.childNodes[1].textContent;
@@ -120,6 +146,27 @@ const editItem = (element) =>{
     form.append(editOkBtn)
     editOkBtn.classList.add('editOkBtn')
     editOkBtn.addEventListener('click', () => editingProcess(elementforArg))
+
+    
+    submit.style.backgroundColor = 'gray';
+    submit.style.pointerEvents = 'none';
+   
+    elementforArg.lastElementChild.style.backgroundColor = 'gray';
+    elementforArg.lastElementChild.style.pointerEvents = 'none';
+    elementforArg.lastElementChild.previousElementSibling.style.backgroundColor = 'gray';
+    elementforArg.lastElementChild.previousElementSibling.style.pointerEvents = 'none';
+
+
+    ul.childNodes.forEach(el => {
+        if (el != elementforArg) {
+            el.style.backgroundColor = 'gray';
+            el.style.pointerEvents = 'none';
+        }
+        
+    });
+    
+    
+    
 }
 
 form.addEventListener('submit', function(event){
@@ -142,6 +189,7 @@ form.addEventListener('submit', function(event){
     
     const allInputs = document.getElementsByTagName('INPUT');
     for (let i = 0; i < allInputs.length; i++) allInputs[i].value = '';
+    showTitle();
 })
 
 for (let i = 0; i < liNode.length; i++) {
