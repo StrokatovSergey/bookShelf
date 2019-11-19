@@ -5,32 +5,67 @@ h1,h2 {
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     
 }
+
 .form {
     width: 30%;
-    outline: 1px solid red;
-    
+    padding: 0 10px;
+    border-radius: 10px;
+    background: #00c73421;
+    max-height: 410px;
+    input{
+        border: 1px solid #00c734;
+    }
 }
 .list-container {
-    width: 65%;
-    outline: 1px solid yellowgreen;
+    width: 68%;
+    border-radius: 10px;
+    background: #ffcc002b;
 }
 
-
+.list{
+    padding: 0;
+    margin: 0;
+}
 
 .list li {
     border-radius: 10px;
     margin: 10px;
+    padding: 5px;
     display: flex;
     align-items: center;
-    background: #1aff0b70;
+    background: #ffcc00;
+    flex-wrap: wrap;
     span{
-        background: #f35a5a66;
+        border-bottom: 1px solid red;
+        border-radius: 10px;
+        padding:0 10px;
+        overflow: hidden;
+        width: 100%;
         display: inline-block;
         margin: 5px;
+        position: relative;
     }
+
     button {
+        width: 30%;
         margin: 0 10px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .form, .list-container {
+        width: 100%;
+    }
+    .form {
+        margin-bottom: 10px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .list li button {
+        width: 60%;
+        margin: 5px auto;
     }
 }

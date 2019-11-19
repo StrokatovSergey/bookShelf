@@ -43,8 +43,8 @@ const startWork = ()=>{
         pages.textContent = currentTask[2];
         bookName.textContent = currentTask[3];
 
-        deleteBtn.textContent = 'DELETE BOOK';
-        editBtn.textContent = 'EDIT BOOK';
+        deleteBtn.textContent = 'DELETE';
+        editBtn.textContent = 'EDIT';
 
         node.append(author, year, pages, bookName, editBtn, deleteBtn)
         ul.appendChild(node)
@@ -81,8 +81,8 @@ makeListItem = (authorInput, yearInput, pagesInput, bookNameInput) =>{
     pages.textContent = pagesInput;
     bookName.textContent = bookNameInput;
     
-    deleteBtn.textContent = 'DELETE BOOK';
-    editBtn.textContent = 'EDIT BOOK';
+    deleteBtn.textContent = 'DELETE';
+    editBtn.textContent = 'EDIT';
 
     deleteBtn.addEventListener('click',()=>deleteItem(node))
     editBtn.addEventListener('click', () => editItem(node))
@@ -126,7 +126,7 @@ const editingProcess = (element) => {
 
     ul.childNodes.forEach(el => {
         if (el != element) {
-            el.style.backgroundColor = '#1aff0b70';
+            el.style.backgroundColor = '#ffcc00';
             el.style.pointerEvents = 'auto';
         }
     });
